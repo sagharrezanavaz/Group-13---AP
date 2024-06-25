@@ -9,6 +9,10 @@ import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
 
+from django.shortcuts import render, redirect
+from .forms import ProductForm
+
+
 
 def home(request):
     categories = Category.objects.filter()[:3]
@@ -19,6 +23,16 @@ def home(request):
     }
     return render(request, 'store/index.html', context)
 
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to a page displaying the list of products
+    else:
+        form = ProductForm()
+    
+    return render(request, 'add-product.html', {'form': form})
 
 def detail(request, slug):
     product = get_object_or_404(Product, slug=slug)

@@ -38,3 +38,12 @@ class PasswordResetForm(PasswordResetForm):
 
 class SetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_("New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control'}), help_text=password_validation.password_validators_help_text_html())
+
+
+from django import forms
+from .models import Product
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['title', 'Sugar', 'Coffee', 'Flour', 'Chocolate', 'slug', 'short_description', 'product_image', 'price', 'category']
