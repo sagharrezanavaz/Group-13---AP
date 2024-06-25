@@ -8,8 +8,13 @@ from django.views import View
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
+from django.contrib.auth.decorators import user_passes_test
 
+def Product_admin_check(user):
+    return user.is_authenticated and user.is_staff and user.is_ProductAdmin
 
+def Product_admin_required(view_func):
+    return user_passes_test(Product_admin_check)(view_func)
 def home(request):
     categories = Category.objects.filter()[:3]
     products = Product.objects.filter()[:8]

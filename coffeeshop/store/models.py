@@ -17,10 +17,10 @@ class Category(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=150, verbose_name="Product Title")
-    Sugar=models.IntegerField(verbose_name="Sugar",max_length=10)
-    Coffee=models.IntegerField(verbose_name="Coffee",max_length=10)
-    Flour=models.IntegerField(verbose_name="Flour",max_length=10)
-    Chocolate=models.IntegerField(verbose_name="Chocolate")
+    Sugar=models.IntegerField(verbose_name="Sugar", default=0)
+    Coffee=models.IntegerField(verbose_name="Coffee", default=0)
+    Flour=models.IntegerField(verbose_name="Flour", default=0)
+    Chocolate=models.IntegerField(verbose_name="Chocolate", default=0)
     slug = models.SlugField(max_length=160, verbose_name="Product Slug")
     short_description = models.TextField(verbose_name="Short Description")
     product_image = models.ImageField(upload_to='product', blank=True, null=True, verbose_name="Product Image")
@@ -58,5 +58,5 @@ class Order(models.Model):
 
 class Storage(models.Model):
     name=models.CharField(max_length=255, verbose_name="Name")
-    amount=models.IntegerField(verbose_name="Amount")
+    amount=models.IntegerField(verbose_name="Amount",default=0)
 
