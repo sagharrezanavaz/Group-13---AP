@@ -1,5 +1,6 @@
 {% load static %}
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
 <!-- navbar-->
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
@@ -10,6 +11,9 @@
                 <li class="nav-item">
                   <!-- Link--><a class="nav-link active" href="{% url 'store:home' %}">Home</a>
                 </li>
+                <span class="material-symbols-outlined">
+                  menu
+                </span>
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
                     {% if categories_menu %}
@@ -47,6 +51,9 @@
                     
                 </li>
                 {% else %}
+                  <span class="material-symbols-outlined">
+                    person
+                  </span>
                   <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Login</a></li>
                   <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Create Account</a></li>
                 {% endif %}   
@@ -55,3 +62,5 @@
           </nav>
         </div>
       </header>
+
+      
