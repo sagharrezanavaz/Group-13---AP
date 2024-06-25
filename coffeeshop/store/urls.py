@@ -35,5 +35,7 @@ urlpatterns = [
 
     path('product/test/', views.test, name="test"),
 
+    path('storage/',views.storage,name="storage"),
+
     
 ]

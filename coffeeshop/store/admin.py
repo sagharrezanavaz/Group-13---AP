@@ -1,7 +1,7 @@
 # Register your models here.
 
 from django.contrib import admin
-from .models import Category, Product, Cart, Order
+from .models import Category, Product, Cart, Order, Storage
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'category_image')
@@ -28,9 +28,14 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'ordered_date')
     list_per_page = 20
     search_fields = ('user', 'product')
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'amount')
+    list_per_page = 20
+    search_fields = ('name', 'amount')
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Storage, StorageAdmin)

@@ -60,3 +60,6 @@ class Storage(models.Model):
     name=models.CharField(max_length=255, verbose_name="Name")
     amount=models.IntegerField(verbose_name="Amount",default=0)
 
+    def __str__(self):
+        return self.name
+
