@@ -17,11 +17,15 @@ class Category(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=150, verbose_name="Product Title")
+    Sugar=models.IntegerField(verbose_name="Sugar",max_length=10)
+    Coffee=models.IntegerField(verbose_name="Coffee",max_length=10)
+    Flour=models.IntegerField(verbose_name="Flour",max_length=10)
+    Chocolate=models.IntegerField(verbose_name="Chocolate")
     slug = models.SlugField(max_length=160, verbose_name="Product Slug")
     short_description = models.TextField(verbose_name="Short Description")
     product_image = models.ImageField(upload_to='product', blank=True, null=True, verbose_name="Product Image")
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    category = models.ForeignKey(Category, verbose_name="Product Categoy", on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, verbose_name="Product Category", on_delete=models.CASCADE)
     class Meta:
         verbose_name_plural = 'Products'
 
@@ -51,4 +55,8 @@ class Order(models.Model):
         max_length=50,
         default="Pending"
         )
+
+class Storage(models.Model):
+    name=models.CharField(max_length=255, verbose_name="Name")
+    amount=models.IntegerField(verbose_name="Amount")
 
