@@ -10,7 +10,27 @@ from django.forms.fields import CharField
 from django.utils.translation import gettext, gettext_lazy as _
 
 
+'''
+class RegistrationForm(UserCreationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
+    class Meta:
+        model = User
+        fields = ['name', 'username', 'email', 'password1']
+        labels = {'email': 'Email'}
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['name']
+        user.email = self.cleaned_data['email']
+        user.username = self.cleaned_data['username']
+        if commit:
+            user.save()
+        return user
+'''
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
     email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
