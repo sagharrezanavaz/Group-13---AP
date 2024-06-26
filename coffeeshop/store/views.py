@@ -187,3 +187,5 @@ def shop(request):
 def test(request):
     return render(request, 'store/test.html')
 
+def storage(request):
+    return render(request, 'storage.html')

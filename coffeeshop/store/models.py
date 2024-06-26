@@ -21,6 +21,7 @@ class Product(models.Model):
     Coffee=models.IntegerField(verbose_name="Coffee",default=0)
     Flour=models.IntegerField(verbose_name="Flour",default=0)
     Chocolate=models.IntegerField(verbose_name="Chocolate",default=0)
+    Milk=models.IntegerField(verbose_name="Milk",default=0)
     slug = models.SlugField(max_length=160, verbose_name="Product Slug")
     short_description = models.TextField(verbose_name="Short Description")
     product_image = models.ImageField(upload_to='product', blank=True, null=True, verbose_name="Product Image")
