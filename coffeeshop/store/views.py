@@ -24,6 +24,7 @@ def home(request):
     }
     return render(request, 'store/index.html', context)
 
+@user_passes_test(lambda u: u.is_staff)
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
