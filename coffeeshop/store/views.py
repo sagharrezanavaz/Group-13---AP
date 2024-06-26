@@ -1,6 +1,7 @@
 import django
 from django.contrib.auth.models import User
-from store.models import  Cart, Category, Order, Product
+from .models import  Cart, Category, Order, Product, Storage
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import RegistrationForm
 from django.contrib import messages
@@ -187,5 +188,15 @@ def shop(request):
 def test(request):
     return render(request, 'store/test.html')
 
+@user_passes_test(lambda u: u.is_staff)
 def storage(request):
-    return render(request, 'storage.html')
+    storage_items = Storage.objects.all()
+
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        new_amount = request.POST.get('new_amount')
+        storage_item = Storage.objects.get(id=item_id)
+        storage_item.amount = new_amount
+        storage_item.save()
+
+    return render(request, 'storage.html', {'storage_items': storage_items})

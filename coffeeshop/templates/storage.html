@@ -1,4 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-    <h2> hello</h2>
+<div class="container py-5">
+  <div class="col-md-8 offset-2">
+
+    <h1 class="mb-5">Storage Items</h1>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in storage_items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.amount }}</td>
+          <td>
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="item_id" value="{{ item.id }}">
+              <div class="input-group">
+                <input type="number" name="new_amount" class="form-control" value="{{ item.amount }}">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
 {% endblock %}
