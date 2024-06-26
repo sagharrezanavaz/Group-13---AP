@@ -8,13 +8,12 @@ from django.views import View
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
-from django.contrib.auth.decorators import user_passes_test
 
-def Product_admin_check(user):
-    return user.is_authenticated and user.is_staff and user.is_ProductAdmin
+from django.shortcuts import render, redirect
+from .forms import ProductForm
 
-def Product_admin_required(view_func):
-    return user_passes_test(Product_admin_check)(view_func)
+
+
 def home(request):
     categories = Category.objects.filter()[:3]
     products = Product.objects.filter()[:8]
@@ -24,6 +23,16 @@ def home(request):
     }
     return render(request, 'store/index.html', context)
 
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to a page displaying the list of products
+    else:
+        form = ProductForm()
+    
+    return render(request, 'add-product.html', {'form': form})
 
 def detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -177,5 +186,4 @@ def shop(request):
 
 def test(request):
     return render(request, 'store/test.html')
-def storage(request):
-    return render(request, 'store/storage.html')
+

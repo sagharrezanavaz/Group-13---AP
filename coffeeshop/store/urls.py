@@ -2,12 +2,15 @@ from store.forms import LoginForm, PasswordChangeForm, PasswordResetForm, SetPas
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.urls import path
+from .views import add_product
 
 
 app_name = 'store'
 
 
 urlpatterns = [
+    path('add-product/', add_product, name='add-product'),
     path('', views.home, name="home"),
     path('add-to-cart/', views.add_to_cart, name="add-to-cart"),
     path('remove-cart/<int:cart_id>/', views.remove_cart, name="remove-cart"),
