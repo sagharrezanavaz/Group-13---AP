@@ -6,10 +6,12 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .forms import RegistrationForm
 from django.contrib import messages
 from django.views import View
+from django.contrib.auth import login,logout
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
-
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 
@@ -175,14 +177,13 @@ def orders(request):
     return render(request, 'store/orders.html', {'orders': all_orders})
 
 
-
-
-
 def shop(request):
     return render(request, 'store/shop.html')
 
 
-
+def logout_page(request):
+    logout(request)
+    return redirect('store:home')
 
 
 def test(request):

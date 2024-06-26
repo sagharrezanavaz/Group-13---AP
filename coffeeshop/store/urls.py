@@ -19,7 +19,7 @@ urlpatterns = [
     path('plus-cart/<int:cart_id>/', views.plus_cart, name="plus-cart"),
     path('minus-cart/<int:cart_id>/', views.minus_cart, name="minus-cart"),
     path('cart/', views.cart, name="cart"),
-    path('checkout/', views.checkout, name="checkout"),
+    path('checkout/', views.checkout, name="checkout"),   
     path('orders/', views.orders, name="orders"),
 
     #URL for Products
@@ -33,7 +33,8 @@ urlpatterns = [
     path('accounts/register/', views.RegistrationView.as_view(), name="register"),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='account/login.html', authentication_form=LoginForm), name="login"),
     path('accounts/profile/', views.profile, name="profile"),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='store:login'), name="logout"),
+    ##path('accounts/logout/', auth_views.LogoutView.as_view(next_page='login'), name="logout"),
+    path('accounts/logout/', views.logout_page, name="logout"),
 
     path('accounts/password-change/', auth_views.PasswordChangeView.as_view(template_name='account/password_change.html', form_class=PasswordChangeForm, success_url='/accounts/password-change-done/'), name="password-change"),
     path('accounts/password-change-done/', auth_views.PasswordChangeDoneView.as_view(template_name='account/password_change_done.html'), name="password-change-done"),
