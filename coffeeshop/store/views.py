@@ -92,23 +92,41 @@ class AddressView(View):
 
 
 
-
 @login_required
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
     product = get_object_or_404(Product, id=product_id)
-
-    item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
-    if item_already_in_cart:
-        cp = get_object_or_404(Cart, product=product_id, user=user)
-        cp.quantity += 1
-        cp.save()
-    else:
-        Cart(user=user, product=product).save()
     
-    return redirect('store:cart')
+    # Check if there are enough ingredients in the storage for this product
+    if check_ingredients_availability(product):
+        item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
+        if item_already_in_cart:
+            cp = get_object_or_404(Cart, product=product_id, user=user)
+            cp.quantity += 1
+            cp.save()
+        else:
+            Cart(user=user, product=product).save()
+        return redirect('store:cart')
+    else:
+        return redirect('store:home')  # Redirect to homepage or a specific page indicating ingredient unavailability
 
+def check_ingredients_availability(product):
+    # Define a method to check if there are enough ingredients in the storage for a given product
+    ingredients = {
+        'Sugar': product.Sugar,
+        'Coffee': product.Coffee,
+        'Flour': product.Flour,
+        'Chocolate': product.Chocolate,
+        'Milk': product.Milk
+    }
+    
+    for ingredient, quantity_needed in ingredients.items():
+        storage_item = Storage.objects.filter(name=ingredient).first()
+        if not storage_item or storage_item.amount < quantity_needed:
+            return False
+
+    return True
 
 @login_required
 def cart(request):
