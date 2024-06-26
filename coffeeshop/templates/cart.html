@@ -136,7 +136,9 @@
                     {% endif %}
 
                     <!-- Set up a container element for the button -->
-                    <div class="text-end" id="paypal-button-container"></div>
+                    {% comment %}
+                      <div class="text-end" id="paypal-button-container"></div>
+                    {% endcomment %}
 
                     {% comment %} For Cash on Delivery {% endcomment %}
                     <button type="submit" class="btn btn-dark btn-lg btn-outline-dark" type="submit"> <i class="fas fa-dollar-sign mr-2"></i>Cash on Delivery</button>
@@ -192,6 +194,6 @@
             }
 
 
-        }).render('#paypal-button-container');
+        }).render('#-button-container');
     </script>
       {% endblock payment-gateway %}
