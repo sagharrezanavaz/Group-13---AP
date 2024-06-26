@@ -104,6 +104,7 @@ def add_to_cart(request):
         if item_already_in_cart:
             cp = get_object_or_404(Cart, product=product_id, user=user)
             cp.quantity += 1
+            messages.success(request,"Successfully added product!")
             cp.save()
         else:
             Cart(user=user, product=product).save()
