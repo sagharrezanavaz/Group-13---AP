@@ -173,29 +173,37 @@
          // Render the PayPal button into #paypal-button-container
          paypal.Buttons({
  
+   {% endco{% comment %}
+    mment %}
+             // Set up the transaction
+             createOrder: function(data, actions) {
+                 return actions.order.create({
+                     purchase_units: [{
+                         amount: {
+                             value: '{{total_amount}}'
+                         }
+                     }]
+                 });
+             },
+ 
    {% endcomment %}
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '{{total_amount}}'
-                        }
-                    }]
-                });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                    // Savind Order in Database after Payment Success
-                    document.getElementById('myform').submit();
-                });
-            }
-
-
-        }).render('#-button-container');
+            {% comment %}
+              // Finalize the transaction
+              onApprove: function(data, actions) {
+                  return actions.order.capture().then(function(details) {
+                      // Show a success message to the buyer
+                      alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                      // Savind Order in Database after Payment Success
+                      document.getElementById('myform').submit();
+                  });
+              }
+  
+  
+       {% comment %}
+             {% endcomment %}
+         {% comment %}
+          }).render('#-button-container');
+         {% endcomment %}
+       {% endcomment %}
     </script>
       {% endblock payment-gateway %}
