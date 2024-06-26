@@ -1,3 +1,11 @@
+<style>
+  .carousel-item img {
+      width: 100%; /* Adjust based on your desired width */
+      height: 500px; /* Adjust based on your desired height */
+      object-fit: cover; /* Cover the entire area without distortion */
+  }
+</style>
+  
 {% extends 'base.html' %}
 {% load static %}
 
@@ -28,6 +36,13 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+      <script>
+        $(document).ready(function(){
+            $('#carouselExampleIndicators').carousel({
+                interval: 5000 // Change the time here to set the delay between slides
+            });
+        });
+      </script>
      
 
   <!-- END SLIDESHOW/CAROUSEL -->
