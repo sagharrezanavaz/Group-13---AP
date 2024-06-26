@@ -100,18 +100,36 @@ def add_to_cart(request):
     
     # Check if there are enough ingredients in the storage for this product
     if check_ingredients_availability(product):
-        item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
-        if item_already_in_cart:
-            cp = get_object_or_404(Cart, product=product_id, user=user)
-            cp.quantity += 1
-            messages.success(request,"Successfully added product!")
-            cp.save()
-        else:
-            Cart(user=user, product=product).save()
+        add_product_to_cart_and_deduct_ingredients(product, user)
         return redirect('store:cart')
     else:
+        messages.error(request, "Unable to add product to cart. Required ingredients not available.")
         return redirect('store:home')  # Redirect to homepage or a specific page indicating ingredient unavailability
 
+def add_product_to_cart_and_deduct_ingredients(product, user):
+    item_already_in_cart = Cart.objects.filter(product=product, user=user).first()
+    if item_already_in_cart:
+        item_already_in_cart.quantity += 1
+        item_already_in_cart.save()
+    else:
+        Cart(user=user, product=product).save()
+    
+    deduct_ingredient_amounts(product)
+
+def deduct_ingredient_amounts(product):
+    ingredients = {
+        'Sugar': product.Sugar,
+        'Coffee': product.Coffee,
+        'Flour': product.Flour,
+        'Chocolate': product.Chocolate,
+        'Milk': product.Milk
+    }
+    
+    for ingredient, quantity_needed in ingredients.items():
+        storage_item = Storage.objects.filter(name=ingredient).first()
+        if storage_item:
+            storage_item.amount -= quantity_needed
+            storage_item.save()
 def check_ingredients_availability(product):
     # Define a method to check if there are enough ingredients in the storage for a given product
     ingredients = {
