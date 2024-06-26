@@ -45,7 +45,21 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True, 'class': 'form-control'}))
     password = forms.CharField(label=_("Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+    
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
+        # Check if the username is actually an email
+        if '@' in username:
+            try:
+                user = User.objects.get(email=username)
+                username = user.username  # Replace the username with the actual username
+            except User.DoesNotExist:
+                pass
+
+        self.cleaned_data['username'] = username
+        return super().clean()
 
 
 class PasswordChangeForm(PasswordChangeForm):
