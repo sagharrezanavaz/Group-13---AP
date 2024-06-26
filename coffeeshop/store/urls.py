@@ -4,7 +4,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from .views import add_product
-from store import views
+from . import views
 
 app_name = 'store'
 
@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('add-product/', views.add_product, name='add-product'),
     path('storage/', views.storage, name="storage"),
+    path('store-management/', views.store_management, name='store-management'),
     path('add-to-cart/', views.add_to_cart, name="add-to-cart"),
     path('remove-cart/<int:cart_id>/', views.remove_cart, name="remove-cart"),
     path('plus-cart/<int:cart_id>/', views.plus_cart, name="plus-cart"),
