@@ -166,12 +166,14 @@
 
       {% block payment-gateway %}
         <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR-PAYPAL-CLIENT-ID&currency=USD"></script>
-
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
-
+   {% comment %}
+     <script src="https://www.paypal.com/sdk/js?client-id=YOUR-PAYPAL-CLIENT-ID&currency=USD"></script>
+ 
+     <script>
+         // Render the PayPal button into #paypal-button-container
+         paypal.Buttons({
+ 
+   {% endcomment %}
             // Set up the transaction
             createOrder: function(data, actions) {
                 return actions.order.create({
