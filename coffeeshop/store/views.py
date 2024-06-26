@@ -9,7 +9,7 @@ from django.views import View
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
-
+from store.models import  Cart, Category, Order, Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 
@@ -48,18 +48,20 @@ def detail(request, slug):
 
 
 def all_categories(request):
+    categories = Category.objects.filter()
     return render(request, 'store/categories.html', {'categories':categories})
 
 
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category)
+    categories = Category.objects.filter()
     context = {
         'category': category,
         'products': products,
         'categories': categories,
     }
-    return render(request, 'store/category_products.html', context)
+    return render(request, 'categories.html', context)
 
 
 
