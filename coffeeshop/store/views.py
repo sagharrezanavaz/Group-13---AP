@@ -203,3 +203,18 @@ def storage(request):
         storage_item.save()
 
     return render(request, 'storage.html', {'storage_items': storage_items})
+
+@user_passes_test(lambda u: u.is_staff)
+def store_management(request):
+    products = Product.objects.all()
+    product_id = request.GET.get('product_id')  # Get product ID parameter from the request
+    sales_data = []  # Placeholder for sales data
+    selected_product = None
+    if product_id:
+        selected_product = Product.objects.get(id=product_id)
+        orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')  # Retrieve orders for the selected product
+        # Extract sales data based on date
+        for order in orders:
+            sales_data.append({'date': order.ordered_date, 'quantity': order.quantity})
+
+    return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'sales_data': sales_data})
