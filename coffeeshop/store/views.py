@@ -130,7 +130,7 @@ def cart(request):
         'shipping_amount': shipping_amount,
         'total_amount': amount + shipping_amount,
     }
-    return render(request, 'store/cart.html', context)
+    return render(request, 'cart.html', context)
 
 
 @login_required
