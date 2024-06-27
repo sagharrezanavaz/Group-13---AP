@@ -32,25 +32,14 @@
                     window.location.href = window.location.pathname + '?product_id=' + productId;
                 });
             </script>
-
+            
             {% if selected_product %}
             <h3>Sales of {{ selected_product.title }}</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in sales_data %}
-                        <tr>
-                            <td>{{ data.date }}</td>
-                            <td>{{ data.quantity }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div id="chart1" style="height: 300px;"></div>
+            <script type="text/javascript">
+                var graph1 = {{ sales_data.0.sales_graph|safe }};
+                Plotly.newPlot('chart1', JSON.parse(graph1));
+            </script>
             {% endif %}
         </div>
     </div>

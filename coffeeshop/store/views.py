@@ -12,7 +12,11 @@ from django.utils.decorators import method_decorator # for Class Based Views
 from store.models import  Cart, Category, Order, Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
-
+import pandas as pd
+from django_pandas.io import read_frame
+import plotly
+import plotly.express as px
+import json
 
 
 def home(request):
@@ -101,6 +105,7 @@ def add_to_cart(request):
     # Check if there are enough ingredients in the storage for this product
     if check_ingredients_availability(product):
         add_product_to_cart_and_deduct_ingredients(product, user)
+        messages.success(request, 'Your orders have been added successfully.')
         return redirect('store:cart')
     else:
         messages.error(request, "Unable to add product to cart. Required ingredients not available.")
@@ -167,6 +172,7 @@ def cart(request):
         'shipping_amount': shipping_amount,
         'total_amount': amount + shipping_amount,
     }
+
     return render(request, 'cart.html', context)
 
 
@@ -212,9 +218,8 @@ def checkout(request):
 @login_required
 def orders(request):
     all_orders = Order.objects.filter(user=request.user).order_by('-ordered_date')
-    return render(request, 'store/orders.html', {'orders': all_orders})
-
-
+    messages.success(request, 'Your orders have been loaded successfully.')  # Add success message
+    return render(request, 'cart.html', {'orders': all_orders})
 
 
 
@@ -241,17 +246,27 @@ def storage(request):
 
     return render(request, 'storage.html', {'storage_items': storage_items})
 
+
 @user_passes_test(lambda u: u.is_staff)
 def store_management(request):
     products = Product.objects.all()
-    product_id = request.GET.get('product_id')  # Get product ID parameter from the request
-    sales_data = []  # Placeholder for sales data
+
+    product_id = request.GET.get('product_id')
+    sales_data = []
     selected_product = None
+
     if product_id:
         selected_product = Product.objects.get(id=product_id)
-        orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')  # Retrieve orders for the selected product
-        # Extract sales data based on date
-        for order in orders:
-            sales_data.append({'date': order.ordered_date, 'quantity': order.quantity})
+        orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')
+       
+        df = read_frame(orders)
+        df['ordered_date'] = pd.to_datetime(df['ordered_date'])  # Convert 'ordered_date' to datetime if it's not already
+       
+        grouped_orders = df.groupby('ordered_date')['quantity'].sum().reset_index()  # Group by 'ordered_date' and sum 'quantity'
+
+        sales_graph = px.bar(grouped_orders, x='ordered_date', y='quantity', title="Sales Graph")
+        sales_graph = json.dumps(sales_graph, cls=plotly.utils.PlotlyJSONEncoder)
+
+        sales_data.append({'sales_graph': sales_graph})
 
     return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'sales_data': sales_data})
