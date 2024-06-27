@@ -17,11 +17,12 @@ from django_pandas.io import read_frame
 import plotly
 import plotly.express as px
 import json
+from django.db.models import Sum
 
 
 def home(request):
     categories = Category.objects.filter()[:3]
-    products = Product.objects.filter()[:8]
+    products = Product.objects.annotate(total_quantity_sold=Sum('order__quantity')).order_by('-total_quantity_sold')[:12]
     context = {
         'categories': categories,
         'products': products,
