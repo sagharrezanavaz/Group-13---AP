@@ -49,7 +49,7 @@ def detail(request, slug):
         'related_products': related_products,
 
     }
-    return render(request, 'store/detail.html', context)
+    return render(request, 'detail.html', context)
 
 
 def all_categories(request):
@@ -60,7 +60,7 @@ def all_categories(request):
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category)
-    categories = Category.objects.filter()
+    categories = Category.objects.all()
     context = {
         'category': category,
         'products': products,

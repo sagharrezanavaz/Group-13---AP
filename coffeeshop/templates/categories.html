@@ -14,7 +14,7 @@
     <h2>All Categories</h2>
     <ul>
         {% for cat in categories %}
-        <li><a href="{% url 'category_products' cat.slug %}">{{ cat.name }}</a></li>
+          <li><a href="{% url 'store:category-products' cat.slug %}">{{ cat.name }}</a></li>
         {% endfor %}
     </ul>
 </body>
