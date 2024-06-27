@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }}</title>
+</head>
+<body>
+    <h1>{{ category.name }}</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>All Categories</h2>
+    <ul>
+        {% for cat in categories %}
+        <li><a href="{% url 'category_products' cat.slug %}">{{ cat.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

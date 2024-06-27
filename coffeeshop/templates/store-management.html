@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class  ="col-md-3">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="{% url 'store:storage' %}">Storage Management</a></li>
+                    <li><a href="{% url 'store:add-product' %}">Add Product</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h1>Store Management</h1>
+
+            <div>
+                <h3>Select a Product for Sales Chart:</h3>
+                <select id="productSelect">
+                    {% for product in products %}
+                        <option value="{{ product.id }}">{{ product.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div id="salesChart" style="height: 300px;"></div>
+
+            <script>
+                // JavaScript for updating chart based on selected product
+                document.getElementById('productSelect').addEventListener('change', function() {
+                    var productId = this.value;
+                    window.location.href = window.location.pathname + '?product_id=' + productId;
+                });
+            </script>
+            
+            {% if selected_product %}
+            <h3>Sales of {{ selected_product.title }}</h3>
+            <div id="chart1" style="height: 300px;"></div>
+            <script type="text/javascript">
+                var graph1 = {{ sales_data.0.sales_graph|safe }};
+                Plotly.newPlot('chart1', JSON.parse(graph1));
+            </script>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
