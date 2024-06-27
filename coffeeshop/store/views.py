@@ -54,7 +54,7 @@ def detail(request, slug):
 
 def all_categories(request):
     categories = Category.objects.filter()
-    return render(request, 'store/categories.html', {'categories':categories})
+    return render(request, 'categories.html', {'categories':categories})
 
 
 def category_products(request, slug):
