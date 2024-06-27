@@ -146,15 +146,15 @@
                           <input type="radio" id="cashPayment" name="payment_method" value="Cash" onchange="enableSubmitButton()">
                           Cash on Delivery
                       </label><br>
-                  
+
                       <label for="creditPayment">
                           <input type="radio" id="creditPayment" name="payment_method" value="Credit" onchange="enableSubmitButton()">
                           Credit
                       </label><br>
-                  
+
                       <button type="submit" class="btn btn-dark btn-lg btn-outline-dark" id="submitButton" disabled>Submit</button>
                   </form>
-                  
+
                   <script>
                     function enableSubmitButton() {
                         if (document.getElementById('cashPayment').checked || document.getElementById('creditPayment').checked) {
@@ -163,18 +163,18 @@
                             document.getElementById('submitButton').disabled = true;
                         }
                     }
-                
+
                     document.addEventListener('DOMContentLoaded', function() {
                         enableSubmitButton(); // Ensure submit button status is correct on page load
                     });
-                
+
                     document.getElementById('paymentForm').addEventListener('submit', function(event) {
                         if (!document.getElementById('cashPayment').checked && !document.getElementById('creditPayment').checked) {
                             alert('Please choose one of the payment methods.');
                             event.preventDefault();
                         } else {
                             alert('Enjoy your order! Redirecting to cart page.');
-                
+
                             // Redirect to the cart page after 3 seconds
                             setTimeout(function() {
                                 window.location.href = "{% url 'store:cart' %}";
@@ -189,7 +189,7 @@
 
           </div>
         </section>
-        
+
         {% else %}
 
           <div class="text-center py-5">
