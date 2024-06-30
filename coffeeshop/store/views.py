@@ -268,7 +268,7 @@ def store_management(request):
         products = Product.objects.all()
         product_id = request.GET.get('product_id')
         sales_data = []
-        selected_product = None
+        selected_product = products.first()
         chart=''
         if product_id:
             selected_product = Product.objects.get(id=product_id)
