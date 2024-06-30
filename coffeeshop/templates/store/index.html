@@ -120,7 +120,13 @@
                     <p class="small text-muted">${{product.price}}</p>
                   </div>
                 </div>
-
+<style>
+    .category-item img,
+    .product img {
+      height: 300px; /* Adjust the height as needed for alignment */
+      object-fit: cover;
+  }
+</style>
               {% endfor %}
             {% endif %}
 
