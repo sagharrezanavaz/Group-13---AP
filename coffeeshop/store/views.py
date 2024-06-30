@@ -12,11 +12,6 @@ from django.utils.decorators import method_decorator # for Class Based Views
 from .models import  Cart, Category, Order, Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
-import pandas as pd
-from django_pandas.io import read_frame
-import plotly
-import plotly.express as px
-import json
 from django.db.models import Sum
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
