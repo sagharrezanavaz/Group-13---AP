@@ -33,8 +33,8 @@ urlpatterns = [
     path('accounts/register/', views.RegistrationView.as_view(), name="register"),
     path('accounts/login/', views.login_view, name="login"),
     path('accounts/profile/', views.profile, name="profile"),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='store:login'), name="logout"),
-
+   ## path('accounts/logout/', auth_views.LogoutView.as_view(next_page='store:login'), name="logout"),
+    path('accounts/logout/', views.logout_page, name='logout'),
     path('accounts/password-change/',
          auth_views.PasswordChangeView.as_view(template_name='account/password_change.html',
                                                form_class=PasswordChangeForm,

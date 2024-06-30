@@ -13,7 +13,7 @@ from .models import  Cart, Category, Order, Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 from django.db.models import Sum
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .utils import get_plot
@@ -330,3 +330,7 @@ def login_view(request):
             return render(request, 'account/login.html', {'login_failed': login_failed})
 
     return render(request, 'account/login.html')
+
+def logout_page(request):
+    logout(request)
+    return redirect('store:home')
