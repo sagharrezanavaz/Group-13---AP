@@ -21,6 +21,7 @@ from django.db.models import Sum
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from .utils import get_plot
 
 
 
@@ -266,24 +267,50 @@ def store_management(request):
     products = Product.objects.all()
 
     product_id = request.GET.get('product_id')
-    sales_data = []
-    selected_product = None
 
-    if product_id:
-        selected_product = Product.objects.get(id=product_id)
-        orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')
-       
-        df = read_frame(orders)
-        df['ordered_date'] = pd.to_datetime(df['ordered_date'])  # Convert 'ordered_date' to datetime if it's not already
-       
-        grouped_orders = df.groupby('ordered_date')['quantity'].sum().reset_index()  # Group by 'ordered_date' and sum 'quantity'
+@user_passes_test(lambda u: u.is_staff)
+def store_management(request):
+        products = Product.objects.all()
+        product_id = request.GET.get('product_id')
+        sales_data = []
+        selected_product = None
 
-        sales_graph = px.bar(grouped_orders, x='ordered_date', y='quantity', title="Sales Graph")
-        sales_graph = json.dumps(sales_graph, cls=plotly.utils.PlotlyJSONEncoder)
+        if product_id:
+            selected_product = Product.objects.get(id=product_id)
+            orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')
 
-        sales_data.append({'sales_graph': sales_graph})
+            # Ensure we're working with the correct product
+            if orders.exists():
+                # Extract unique ordered dates
+                ordered_dates = [order.ordered_date.date() for order in orders]
 
-    return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'sales_data': sales_data})
+                # Initialize a dictionary to hold aggregated quantities
+                aggregated_quantities = {}
+
+                # Iterate through each unique ordered date
+                for date in ordered_dates:
+                    # Format the date as a string for easier comparison
+                    date_str = date.strftime('%Y-%m-%d')
+                    # Aggregate the quantities for this date
+                    quantities = orders.filter(ordered_date__date=date).aggregate(total_quantity=Sum('quantity'))
+                    # Safely access the aggregated quantity, providing a default of 0 if none exists
+                    aggregated_quantities[date_str] = quantities.get('total_quantity', 0)
+
+                # Prepare the final data structure for the template
+                for date, quantity in aggregated_quantities.items():
+                    sales_data.append({
+                        'date': date,
+                        'total_quantity_ordered': quantity
+                    })
+                x = [item['date'] for item in sales_data]
+                y = [item['total_quantity_ordered'] for item in sales_data]
+                chart=get_plot(x,y)
+
+            else:
+                # Handle the case where no orders exist for the selected product
+                print("No orders found for the selected product.")
+
+        return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'chart': chart})
 
 def login_view(request):
     if request.method == 'POST':

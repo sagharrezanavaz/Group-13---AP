@@ -35,11 +35,11 @@
             
             {% if selected_product %}
             <h3>Sales of {{ selected_product.title }}</h3>
-            <div id="chart1" style="height: 300px;"></div>
-            <script type="text/javascript">
-                var graph1 = {{ sales_data.0.sales_graph|safe }};
-                Plotly.newPlot('chart1', JSON.parse(graph1));
-            </script>
+                <div>{{ sales_data }}</div>
+                {% if chart %}
+            <img src="data:image/png;base64,{{ chart|safe }}" alt="Sales Chart">
+                {% endif %}
+
             {% endif %}
         </div>
     </div>
