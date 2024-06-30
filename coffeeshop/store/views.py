@@ -273,7 +273,7 @@ def store_management(request):
         if product_id:
             selected_product = Product.objects.get(id=product_id)
             orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')
-
+            chart=''
             # Ensure we're working with the correct product
             if orders.exists():
                 # Extract unique ordered dates
@@ -319,7 +319,7 @@ def login_view(request):
             if user.is_staff:  # Assuming admin users are identified by is_staff flag
                 return redirect('store:store-management')
             else:
-                return redirect('dashboard')
+                return redirect('store:profile')
         else:
             login_failed = True
             return render(request, 'account/login.html', {'login_failed': login_failed})
