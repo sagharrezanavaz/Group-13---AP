@@ -89,12 +89,6 @@ def profile(request):
     return render(request, 'account/profile.html', { 'orders':orders})
 
 
-@method_decorator(login_required, name='dispatch')
-class AddressView(View):
-    def get(self, request):
-        return render(request, {'form': form})
-
-
 
 
 @login_required
@@ -307,16 +301,27 @@ def store_management(request):
 
         return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'chart': chart})
 
+
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username_or_email = request.POST.get('username')
         password = request.POST.get('password')
+
+        # Check if the input is an email and convert it to username if necessary
+        if '@' in username_or_email:
+            try:
+                user = User.objects.get(email=username_or_email)
+                username = user.username
+            except User.DoesNotExist:
+                username = None
+        else:
+            username = username_or_email
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            if user.is_staff:  # Assuming admin users are identified by is_staff flag
+            if user.is_staff:
                 return redirect('store:store-management')
             else:
                 return redirect('store:profile')
