@@ -13,7 +13,7 @@ def get_graph():
 def get_plot(x,y):
     plt.switch_backend('AGG')
     plt.figure(figsize=(5,5))
-    plt.bar(x,y, color='#ea9a53')
+    plt.bar(x,y)
     plt.xticks(rotation=45)
     plt.xlabel('date')
     plt.ylabel('sales quantity')

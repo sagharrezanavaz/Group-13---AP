@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
-        <div class="col-md-3">
+        <div class  ="col-md-3">
             <div class="sidebar">
                 <ul>
                     <li><a href="{% url 'store:storage' %}">Storage Management</a></li>
@@ -23,7 +23,7 @@
                 </select>
             </div>
 
-            <div id="salesChart" style="height: 100px;"></div>
+            <div id="salesChart" style="height: 300px;"></div>
 
             <script>
                 // JavaScript for updating chart based on selected product
@@ -32,10 +32,9 @@
                     window.location.href = window.location.pathname + '?product_id=' + productId;
                 });
             </script>
-
+            
             {% if selected_product %}
-            <!-- Adjust the margin-top property here -->
-            <h3 style="margin-top: -20px;">Sales of {{ selected_product.title }}</h3>
+            <h3>Sales of {{ selected_product.title }}</h3>
                 <div>{{ sales_data }}</div>
                 {% if chart %}
             <img src="data:image/png;base64,{{ chart|safe }}" alt="Sales Chart">
