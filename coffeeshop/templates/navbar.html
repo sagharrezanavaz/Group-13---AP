@@ -32,10 +32,19 @@
                 </li>
               </ul>
               <ul class="navbar-nav ml-auto"> 
-                {% if request.user.is_authenticated %}     
+                {% if request.user.is_staff %}
+                  <span class="material-symbols-outlined">
+                  inventory
+                  </span>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:storage' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Storage<small class="text-gray"></small></a></li>
+                  <span class="material-symbols-outlined">
+                    category
+                    </span>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:add-product' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Add Product<small class="text-gray"></small></a></li>
+                {% elif request.user.is_authenticated %}
                   <span class="material-symbols-outlined">
                     shopping_cart
-                  </span>      
+                  </span>
                   <li class="nav-item"><a class="nav-link" href="{% url 'store:cart' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray"></small></a></li>
                   <span class="material-symbols-outlined">
                     description
@@ -45,8 +54,6 @@
                   {% comment %} <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a></li> {% endcomment %}
 
                   <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a></a>
-                  
-                   
                 </li>
                 {% else %}
                   <span class="material-symbols-outlined">

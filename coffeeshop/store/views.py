@@ -9,7 +9,7 @@ from django.views import View
 import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
-from store.models import  Cart, Category, Order, Product
+from .models import  Cart, Category, Order, Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 import pandas as pd
@@ -18,6 +18,10 @@ import plotly
 import plotly.express as px
 import json
 from django.db.models import Sum
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 
 
 def home(request):
@@ -271,3 +275,22 @@ def store_management(request):
         sales_data.append({'sales_graph': sales_graph})
 
     return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'sales_data': sales_data})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            if user.is_staff:  # Assuming admin users are identified by is_staff flag
+                return redirect('store:store-management')
+            else:
+                return redirect('dashboard')
+        else:
+            login_failed = True
+            return render(request, 'account/login.html', {'login_failed': login_failed})
+
+    return render(request, 'account/login.html')
