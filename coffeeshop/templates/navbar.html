@@ -50,8 +50,9 @@
 
                   {% comment %} <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a></li> {% endcomment %}
 
-                  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a></a>
-                  <a class="dropdown-item border-0 transition-link" href="{% url 'store:logout' %}">Logout</a>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
+                  
+                  
                 </li>
                 {% else %}
                   <span class="material-symbols-outlined">
