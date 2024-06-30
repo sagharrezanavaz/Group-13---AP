@@ -36,11 +36,8 @@
                   <span class="material-symbols-outlined">
                   inventory
                   </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:storage' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Storage<small class="text-gray"></small></a></li>
-                  <span class="material-symbols-outlined">
-                    category
-                    </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:add-product' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Add Product<small class="text-gray"></small></a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'store:store-management' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Store Management<small class="text-gray"></small></a></li>
+    
                 {% elif request.user.is_authenticated %}
                   <span class="material-symbols-outlined">
                     shopping_cart
