@@ -7,7 +7,7 @@
     <div class="col-md-8 offset-2">
 
         <h1 class="mb-5">Add Product</h1>
-        
+
         <div class="card mb-4" id="forms">
             <div class="card-body">
 
@@ -15,20 +15,20 @@
                     {% csrf_token %}
 
                     {% for field in form %}
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 15px;">
                             {{ field.label_tag }}
                             {{ field }}
                             <small class="text-danger">{{ field.errors|striptags }}</small>
                         </div>
                     {% endfor %}
 
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit" style="width: 100%;">Submit</button>
                 </form>
 
             </div>
         </div>
 
-    </div>       
+    </div>
 </div>
 
 {% endblock content %}

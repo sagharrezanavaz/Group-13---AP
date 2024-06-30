@@ -9,23 +9,22 @@
 
     <div class="card mb-4" id="forms">
       <div class="card-body">
-          <form method="post" action="">
-              <fieldset>
-                {% csrf_token %}
-      <label for="username">Username or Email:</label><br>
-      <input type="text" id="username" name="username" required><br><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" required><br><br>
+        <form method="post" action="">
+          <fieldset>
+            {% csrf_token %}
 
-                {% for fm in form %}
-                    <div class="form-group">
-                        {{fm.label_tag}}
-                        {{fm}}
-                        <small class="text-danger">{{fm.errors|striptags}}</small>
-                    </div>
-                {% endfor %}
-              </fieldset>
-          <button type="submit" class="btn btn-primary">Login</button>
+            <div class="form-group">
+              <label for="username">Username or Email:</label><br>
+              <input type="text" id="username" name="username" required class="form-control" style="width: 100%;"><br><br>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password:</label><br>
+              <input type="password" id="password" name="password" required class="form-control" style="width: 100%;"><br><br>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+          </fieldset>
         </form>
 
         {% if login_failed %}
