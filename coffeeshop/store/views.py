@@ -238,16 +238,25 @@ def shop(request):
 def test(request):
     return render(request, 'store/test.html')
 
+
 @user_passes_test(lambda u: u.is_staff)
 def storage(request):
     storage_items = Storage.objects.all()
 
     if request.method == 'POST':
-        item_id = request.POST.get('item_id')
-        new_amount = request.POST.get('new_amount')
-        storage_item = Storage.objects.get(id=item_id)
-        storage_item.amount = new_amount
-        storage_item.save()
+        if 'item_id' in request.POST and 'new_amount' in request.POST:
+            item_id = request.POST.get('item_id')
+            new_amount = request.POST.get('new_amount')
+
+            storage_item = Storage.objects.get(id=item_id)
+            storage_item.amount = new_amount
+            storage_item.save()
+        else:
+            name = request.POST.get('name')
+            amount = request.POST.get('amount')
+
+            new_item = Storage(name=name, amount=amount)
+            new_item.save()
 
     return render(request, 'storage.html', {'storage_items': storage_items})
 
