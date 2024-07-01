@@ -31,11 +31,7 @@
             </li>
             <li class="nav-item">
               <!-- Link-->
-              <a class="nav-link" href="{% url 'store:home' %}">Blog</a>
-            </li>
-            <li class="nav-item">
-              <!-- Link-->
-              <a class="nav-link" href="{% url 'store:home' %}">Contact</a>
+              <a class="nav-link" href="{% url 'store:contact' %}">Contact</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto"> 
@@ -61,11 +57,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'store:profile' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Order history<small class="text-gray"></small></a>
               </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a>                
-              </li>
+              <span class="material-symbols-outlined">
+                logout
+                </span>
               <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
             {% else %}
               <span class="material-symbols-outlined">

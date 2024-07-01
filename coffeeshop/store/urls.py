@@ -21,13 +21,12 @@ urlpatterns = [
     path('cart/', views.cart, name="cart"),
     path('checkout/', views.checkout, name="checkout"),
     path('orders/', views.orders, name="orders"),
+    path('contact/', views.cantact, name="contact"),
 
     # URL for Products
     path('product/<slug:slug>/', views.detail, name="product-detail"),
     path('categories/', views.all_categories, name="all-categories"),
     path('<slug:slug>/', views.category_products, name="category-products"),
-
-    path('shop/', views.shop, name="shop"),
 
     # URL for Authentication
     path('accounts/register/', views.RegistrationView.as_view(), name="register"),
@@ -42,7 +41,5 @@ urlpatterns = [
     path('accounts/password-change-done/',
          auth_views.PasswordChangeDoneView.as_view(template_name='account/password_change_done.html'),
          name="password-change-done"),
-
-    path('product/test/', views.test, name="test"),
 
 ]

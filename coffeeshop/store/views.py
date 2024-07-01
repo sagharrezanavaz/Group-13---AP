@@ -29,6 +29,9 @@ def home(request):
     }
     return render(request, 'store/index.html', context)
 
+def cantact(request):
+    return render(request, 'contact.html')
+
 @user_passes_test(lambda u: u.is_staff)
 def add_product(request):
     if request.method == 'POST':
