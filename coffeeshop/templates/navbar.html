@@ -1,76 +1,86 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-{% load static %}
 <!-- navbar-->
-      <header class="header bg-white">
-        <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="{% url 'store:home' %}"><span class="font-weight-bold text-uppercase text-dark">Coffee Shop</span></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <!-- Link--><a class="nav-link active" href="{% url 'store:home' %}">Home</a>
-                </li>
-                  <span class="material-symbols-outlined">
-                    menu
-                    </span>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-                  <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    {% if categories_menu %}
-                      {% for cat_menu in categories_menu %}
-                        <a class="dropdown-item border-0 transition-link" href="{% url 'store:category-products' cat_menu.slug %}">{{cat_menu.title}}</a>
-                      {% endfor %}
-                    {% endif %}
-                    <hr>
-                    <a class="dropdown-item border-0 transition-link" href="{% url 'store:all-categories' %}">All Categories</a>
-                    
-                </li>
-                <li class="nav-item">
-                  <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <!-- Link--><a class="nav-link" href="{% url 'store:home' %}">Contact</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav ml-auto"> 
-                {% if request.user.is_staff %}
-                  <span class="material-symbols-outlined">
-                  inventory
-                  </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:store-management' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Store Management<small class="text-gray"></small></a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
-                {% elif request.user.is_authenticated %}
-                  <span class="material-symbols-outlined">
-                    shopping_cart
-                  </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:cart' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray"></small></a></li>
-                  <span class="material-symbols-outlined">
-                    description
-                  </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:profile' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Order history<small class="text-gray"></small></a></li>
+<header class="header bg-white">
+  <div class="container px-0 px-lg-3">
+    <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
+      <a class="navbar-brand" href="{% url 'store:home' %}">
+        <span class="font-weight-bold text-uppercase text-dark">Coffee Shop</span>
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <!-- Link-->
+            <a class="nav-link active" href="{% url 'store:home' %}">Home</a>
+          </li>
+          <span class="material-symbols-outlined">
+            menu
+          </span>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+            <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
+              {% if categories_menu %}
+                {% for cat_menu in categories_menu %}
+                  <a class="dropdown-item border-0 transition-link" href="{% url 'store:category-products' cat_menu.slug %}">{{cat_menu.title}}</a>
+                {% endfor %}
+              {% endif %}
+              <hr>
+              <a class="dropdown-item border-0 transition-link" href="{% url 'store:all-categories' %}">All Categories</a>
+            </li>
+            <li class="nav-item">
+              <!-- Link-->
+              <a class="nav-link" href="{% url 'store:home' %}">Blog</a>
+            </li>
+            <li class="nav-item">
+              <!-- Link-->
+              <a class="nav-link" href="{% url 'store:home' %}">Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto"> 
+            {% if request.user.is_staff %}
+              <span class="material-symbols-outlined">
+              inventory
+              </span>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:store-management' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Store Management<small class="text-gray"></small></a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
+            {% elif request.user.is_authenticated %}
+              <span class="material-symbols-outlined">
+                shopping_cart
+              </span>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:cart' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray"></small></a>
+              </li>
+              <span class="material-symbols-outlined">
+                description
+              </span>
 
-                  {% comment %} <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a></li> {% endcomment %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:profile' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Order history<small class="text-gray"></small></a>
+              </li>
 
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
-                  
-                  
-                </li>
-                {% else %}
-                  <span class="material-symbols-outlined">
-                    login
-                  </span>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Login</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Create Account</a></li>
-                {% endif %}   
-              </ul>
-            </div>
-          </nav>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user-alt mr-1 text-gray"></i>My Account</a>                
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Logout<small class="text-gray"></small></a></li>
+            {% else %}
+              <span class="material-symbols-outlined">
+                login
+              </span>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'store:register' %}">Create Account</a>
+              </li>
+            {% endif %}   
+          </ul>
         </div>
-      </header>
-<style>
-  .material-symbols-outlined {
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 6px; /* Adjust the margin-top value as needed */
-  }
-</style>
+      </nav>
+    </div>
+  </header>
 
