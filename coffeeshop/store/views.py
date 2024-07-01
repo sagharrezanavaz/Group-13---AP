@@ -53,21 +53,14 @@ def detail(request, slug):
 
 
 def all_categories(request):
-    categories = Category.objects.filter()
-    return render(request, 'categories.html', {'categories':categories})
-
+    categories_menu = Category.objects.filter()  # Or filter as per your requirement
+    return render(request, 'categories.html', {'categories_menu': categories_menu})
 
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category)
-    categories = Category.objects.all()
-    context = {
-        'category': category,
-        'products': products,
-        'categories': categories,
-    }
-    return render(request, 'categories.html', context)
-
+    categories_menu = Category.objects.all()  # Fetch all categories
+    return render(request, 'category_products.html', {'products': products, 'category': category, 'categories_menu': categories_menu})
 
 
 class RegistrationView(View):
@@ -130,6 +123,8 @@ def deduct_ingredient_amounts(product):
         if storage_item:
             storage_item.amount -= quantity_needed
             storage_item.save()
+
+            
 def check_ingredients_availability(product):
     # Define a method to check if there are enough ingredients in the storage for a given product
     ingredients = {
