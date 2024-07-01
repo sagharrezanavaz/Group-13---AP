@@ -23,17 +23,21 @@ from .utils import get_plot
 def home(request):
     categories = Category.objects.filter()[:3]
     products = Product.objects.annotate(total_quantity_sold=Sum('order__quantity')).order_by('-total_quantity_sold')[:12]
+    categories_menu = Category.objects.all()
     context = {
         'categories': categories,
         'products': products,
+        'categories_menu': categories_menu,
     }
     return render(request, 'store/index.html', context)
 
 def cantact(request):
-    return render(request, 'contact.html')
+    categories_menu = Category.objects.all()
+    return render(request, 'contact.html', {'categories_menu': categories_menu})
 
 @user_passes_test(lambda u: u.is_staff)
 def add_product(request):
+    categories_menu = Category.objects.all()
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -42,22 +46,24 @@ def add_product(request):
     else:
         form = ProductForm()
     
-    return render(request, 'add-product.html', {'form': form})
+    return render(request, 'add-product.html', {'form': form, 'categories_menu': categories_menu})
 
 def detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
     related_products = Product.objects.exclude(id=product.id).filter(category=product.category)
+    categories_menu = Category.objects.all()
     context = {
         'product': product,
         'related_products': related_products,
-
+        'categories_menu': categories_menu,
     }
     return render(request, 'detail.html', context)
 
 
 def all_categories(request):
     categories_menu = Category.objects.filter()  # Or filter as per your requirement
-    return render(request, 'categories.html', {'categories_menu': categories_menu})
+    products = Product.objects.all()
+    return render(request, 'categories.html', {'categories_menu': categories_menu, 'products': products})
 
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
@@ -67,6 +73,7 @@ def category_products(request, slug):
 
 
 class RegistrationView(View):
+    categories_menu = Category.objects.all()
     def get(self, request):
         form = RegistrationForm()
         return render(request, 'account/register.html', {'form': form})
@@ -76,13 +83,14 @@ class RegistrationView(View):
         if form.is_valid():
             messages.success(request, "Congratulations! Registration Successful!")
             form.save()
-        return render(request, 'account/register.html', {'form': form})
+        return render(request, 'account/register.html', {'form': form, 'categories_menu': self.categories_menu})
         
 
 @login_required
 def profile(request):
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'account/profile.html', { 'orders':orders})
+    categories_menu = Category.objects.all()
+    return render(request, 'account/profile.html', { 'orders':orders, 'categories_menu': categories_menu})
 
 
 
@@ -92,7 +100,6 @@ def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
     product = get_object_or_404(Product, id=product_id)
-    
     # Check if there are enough ingredients in the storage for this product
     if check_ingredients_availability(product):
         add_product_to_cart_and_deduct_ingredients(product, user)
@@ -147,6 +154,7 @@ def check_ingredients_availability(product):
 
 @login_required
 def cart(request):
+    categories_menu = Category.objects.all()
     user = request.user
     cart_products = Cart.objects.filter(user=user)
 
@@ -164,6 +172,7 @@ def cart(request):
         'amount': amount,
         'shipping_amount': shipping_amount,
         'total_amount': amount + shipping_amount,
+        'categories_menu': categories_menu,
     }
 
     return render(request, 'cart.html', context)
@@ -210,27 +219,30 @@ def checkout(request):
 
 @login_required
 def orders(request):
+    categories_menu = Category.objects.all()
     all_orders = Order.objects.filter(user=request.user).order_by('-ordered_date')
     messages.success(request, 'Your orders have been loaded successfully.')  # Add success message
-    return render(request, 'cart.html', {'orders': all_orders})
+    return render(request, 'cart.html', {'orders': all_orders,'categories_menu':categories_menu})
 
 
 
 def shop(request):
-    return render(request, 'store/shop.html')
+    categories_menu = Category.objects.all()
+    return render(request, 'store/shop.html', {'categories_menu':categories_menu})
 
 
 
 
 
 def test(request):
-    return render(request, 'store/test.html')
+    categories_menu = Category.objects.all()
+    return render(request, 'store/test.html',{'categories_menu':categories_menu})
 
 
 @user_passes_test(lambda u: u.is_staff)
 def storage(request):
     storage_items = Storage.objects.all()
-
+    categories_menu = Category.objects.all()
     if request.method == 'POST':
         if 'item_id' in request.POST and 'new_amount' in request.POST:
             item_id = request.POST.get('item_id')
@@ -246,14 +258,9 @@ def storage(request):
             new_item = Storage(name=name, amount=amount)
             new_item.save()
 
-    return render(request, 'storage.html', {'storage_items': storage_items})
+    return render(request, 'storage.html', {'storage_items': storage_items,'categories_menu':categories_menu})
 
 
-@user_passes_test(lambda u: u.is_staff)
-def store_management(request):
-    products = Product.objects.all()
-
-    product_id = request.GET.get('product_id')
 
 @user_passes_test(lambda u: u.is_staff)
 def store_management(request):
@@ -262,6 +269,7 @@ def store_management(request):
         sales_data = []
         selected_product = products.first()
         chart=''
+        categories_menu = Category.objects.all()
         if product_id:
             selected_product = Product.objects.get(id=product_id)
             orders = Order.objects.filter(product__id=product_id).order_by('ordered_date')
@@ -297,10 +305,11 @@ def store_management(request):
                 # Handle the case where no orders exist for the selected product
                 print("No orders found for the selected product.")
 
-        return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'chart': chart})
+        return render(request, 'store-management.html', {'products': products, 'selected_product': selected_product, 'chart': chart,'categories_menu' :categories_menu})
 
 
 def login_view(request):
+    categories_menu = Category.objects.all()
     if request.method == 'POST':
         username_or_email = request.POST.get('username')
         password = request.POST.get('password')
@@ -327,7 +336,7 @@ def login_view(request):
             login_failed = True
             return render(request, 'account/login.html', {'login_failed': login_failed})
 
-    return render(request, 'account/login.html')
+    return render(request, 'account/login.html',{'categories_menu':categories_menu})
 
 def logout_page(request):
     logout(request)

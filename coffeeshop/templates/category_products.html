@@ -44,9 +44,9 @@
                                         <div class="badge text-white badge-"></div>
                                         <a class="d-block" href="{% url 'store:product-detail' product.slug %}">
                                             {% if product.product_image %}
-                                                <img class="img-fluid w-100" src="{{product.product_image.url}}" alt="{{product.title}}">
+                                                <img class="img-fluid w-100 product-image" src="{{product.product_image.url}}" alt="{{product.title}}">
                                             {% else %}
-                                                <img class="img-fluid w-100" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
+                                                <img class="img-fluid w-100 product-image" src="{% static 'img/product-1.jpg' %}" alt="{{product.title}}">
                                             {% endif %}
                                         </a>
                                         <div class="product-overlay">
@@ -71,5 +71,10 @@
             </div>
         </section>
     </body>
+    <style>
+        .product-image {
+    height: 300px; /* Set the height of the images */
+    object-fit: cover; /* Ensure the image covers the specified height */
+}</style>
     </html>
 {% endblock content %}
