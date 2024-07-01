@@ -190,21 +190,22 @@ def remove_cart(request, cart_id):
 @login_required
 def plus_cart(request, cart_id):
     if request.method == 'GET':
-        cp = get_object_or_404(Cart, id=cart_id)
-        cp.quantity += 1
-        cp.save()
+        cart_item = get_object_or_404(Cart, id=cart_id)
+        cart_item.quantity += 1
+        cart_item.save()
     return redirect('store:cart')
 
 @login_required
 def minus_cart(request, cart_id):
     if request.method == 'GET':
-        cp = get_object_or_404(Cart, id=cart_id)
-        if cp.quantity == 1:
-            cp.delete()
+        cart_item = get_object_or_404(Cart, id=cart_id)
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            cart_item.save()
         else:
-            cp.quantity -= 1
-            cp.save()
+            cart_item.delete()
     return redirect('store:cart')
+
 
 
 @login_required
