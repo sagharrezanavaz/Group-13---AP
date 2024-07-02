@@ -65,7 +65,7 @@
                         <p class="mb-0 small">${{cart_product.product.price}}</p>
                       </td>
                       <td class="align-middle border-0">
-                        <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
+                        <div class="border d-flex align-items-center justify-content-between px-3">
                           <span class="small text-uppercase text-gray headings-font-family">Quantity</span>
                                         <div class="quantity">
                                             <input type="number" class="input-box form-control form-control-sm border-0 shadow-0 p-0" value="{{cart_product.quantity}}" data-cart-id="{{cart_product.id}}" min="1" max="10">
@@ -105,9 +105,6 @@
                   <h5 class="text-uppercase mb-4">Cart total</h5>
                   <ul class="list-unstyled mb-0">
                     <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">total</strong><span class="text-muted small">${{amount|intcomma}}</span></li>
-{% comment %}
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Shipping Charge</strong><span class="text-muted small">+ ${{shipping_amount}}</span></li>
-{% endcomment %}
                     <li class="border-bottom my-2"></li>
                     {% comment %}
                       <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>${{total_amount|intcomma}}</span></li>
@@ -123,20 +120,6 @@
 
                     </li>
                   </ul>
-
-
-                  <h5 class="text-uppercase my-5">Select</h5>
-
-                  <form action="{% url 'store:checkout' %}" id="myform">
-
-                    {% if addresses %}
-                      {% for address in addresses %}
-                        <div class="mb-3">
-                        <input type="radio" name="address" value="{{address.id}}"> <strong>Address {{forloop.counter}}</strong> <br>
-                        ( {{address.locality}}, {{address.city}}, {{address.state}} )
-                        </div>
-                      {% endfor %}
-                    {% endif %}
 
                     <!-- Set up a container element for the button -->
                     {% comment %}
