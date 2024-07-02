@@ -170,8 +170,8 @@ def cart(request):
     context = {
         'cart_products': cart_products,
         'amount': amount,
-        'shipping_amount': shipping_amount,
-        'total_amount': amount + shipping_amount,
+        
+        'total_amount': amount ,
         'categories_menu': categories_menu,
     }
 

@@ -14,7 +14,7 @@
               <div class="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'store:home' %}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Cart</li>
                   </ol>
                 </nav>
@@ -111,12 +111,7 @@
                     {% endcomment %}
                     <li>
 
-                      {% comment %} <form action="#">
-                        <div class="form-group mb-0">
-                          <input class="form-control" type="text" placeholder="Enter your coupon">
-                          <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Apply coupon</button>
-                        </div>
-                      </form> {% endcomment %}
+
 
                     </li>
                   </ul>
