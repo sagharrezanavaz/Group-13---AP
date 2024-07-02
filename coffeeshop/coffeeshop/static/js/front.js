@@ -11,11 +11,6 @@ $(function () {
 
 
     /* ===============================================================
-         PRODUCT SLIDER
-      =============================================================== */
-   
-
-    /* ===============================================================
          PRODUCT QUNATITY
       =============================================================== */
       $('.dec-btn').click(function () {
@@ -40,15 +35,6 @@ $(function () {
 
 
       /* ===============================================================
-           TOGGLE ALTERNATIVE BILLING ADDRESS
-        =============================================================== */
-      $('#alternateAddressCheckbox').on('change', function () {
-         var checkboxId = '#' + $(this).attr('id').replace('Checkbox', '');
-         $(checkboxId).toggleClass('d-none');
-      });
-
-
-      /* ===============================================================
            DISABLE UNWORKED ANCHORS
         =============================================================== */
       $('a[href="#"]').on('click', function (e) {
@@ -58,12 +44,3 @@ $(function () {
 });
 
 
-/* ===============================================================
-     COUNTRY SELECT BOX FILLING
-  =============================================================== */
-$.getJSON('js/countries.json', function (data) {
-    $.each(data, function (key, value) {
-        var selectOption = "<option value='" + value.name + "' data-dial-code='" + value.dial_code + "'>" + value.name + "</option>";
-        $("select.country").append(selectOption);
-    });
-})
