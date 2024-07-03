@@ -20,7 +20,7 @@ from .utils import get_plot
 
 
 def home(request):
-    categories = Category.objects.filter()[:3]
+    categories = Category.objects.filter()
     products = Product.objects.annotate(total_quantity_sold=Sum('order__quantity')).order_by('-total_quantity_sold')[:12]
     categories_menu = Category.objects.all()
     context = {
