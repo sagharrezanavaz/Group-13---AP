@@ -8,14 +8,15 @@
   }
 </style>
 <div class="background">
-  <div class="container py-5" >
+  <div class="container py-5">
     <div class="row">
-      <div class="col-md-8 offset-2" >
-      
+      <div class="col-md-8 offset-2">
+
         <div class="mt-5">
           <h2 style="margin-bottom: 20px;">About Us</h2>
           <p>This coffee shop was created by Mobina Batebi, Saghar Rezanavaz, Mahsa Sarsangi and Rojin Soufi.
-              At our cozy coffee shop, we believe that every cup of coffee tells a story. Nestled in the heart of the city, our shop is more than just a place to get your daily fix; it's a community hub where strangers become friends over shared laughter and the rich aroma of freshly brewed coffee. Our menu offers a variety of blends, each carefully selected to cater to different tastes and moods. Whether you're looking for an energizing shot of espresso to start your day or a soothing latte to unwind after a long day, we've got you covered. But beyond the coffee, it's the atmosphere we create that sets us apart. Our shop is designed to be a welcoming space where you can sit back, relax, and lose yourself in the moment—just like taking a sip of your favorite coffee. Join us, and let's make every moment count, one cup at a time.</p>
+            At our cozy coffee shop, we believe that every cup of coffee tells a story. Nestled in the heart of the city, our shop is more than just a place to get your daily fix; it's a community hub where strangers become friends over shared laughter and the rich aroma of freshly brewed coffee. Our menu offers a variety of blends, each carefully selected to cater to different tastes and moods. Whether you're looking for an energizing shot of espresso to start your day or a soothing latte to unwind after a long day, we've got you covered. But beyond the coffee, it's the atmosphere we create that sets us apart. Our shop is designed to be a welcoming space where you can sit back, relax, and lose yourself in the moment—just like taking a sip of your favorite coffee. Join us, and let's make every moment count, one cup at a time.
+</p>
 
           <h2 style="margin-bottom: 20px;">Opening Hours</h2>
           <p>We are open every day from 7 AM to 9 PM.</p>
@@ -29,6 +30,41 @@
 
           <h2 style="margin-bottom: 20px;">Get in Touch</h2>
           <p>Email us at Coffeeshop@gmail.com or call us at  021-66005116.</p>
+
+          <!-- Trigger Button for the Popup -->
+          <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#discountModal">
+            We have a gift for you!!!
+          </button>
+
+          <!-- Modal Structure -->
+          <div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="discountModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="discountModalLabel">🎉 Special Offer Alert! 🎉</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Hey there, coffee lover! We're thrilled to share some exciting news with you. As a token of our appreciation for choosing us, we're offering a 10% discount on your next purchase!
+
+That's right, enjoy a delightful 10% off on any item from our menu. Whether you're craving a fresh brew, a creamy latte, or a sweet treat, now's the perfect time to indulge.
+
+All you need to do is use the promo code DISCOUNTCOFFEE at checkout. It's that easy!
+
+So why wait? Treat yourself today and let's make every sip even more enjoyable. Grab your favorite coffee or tea and let's celebrate together!
+
+Offer valid until [insert expiration date].
+
+Thank you for being part of our coffee-loving community. We can't wait to serve you soon!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
