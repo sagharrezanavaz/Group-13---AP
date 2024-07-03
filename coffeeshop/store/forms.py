@@ -8,29 +8,8 @@ from django.db.models import fields
 from django.forms import widgets
 from django.forms.fields import CharField
 from django.utils.translation import gettext, gettext_lazy as _
+from .models import Product
 
-
-'''
-class RegistrationForm(UserCreationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}))
-    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
-
-    class Meta:
-        model = User
-        fields = ['name', 'username', 'email', 'password1']
-        labels = {'email': 'Email'}
-
-    def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['name']
-        user.email = self.cleaned_data['email']
-        user.username = self.cleaned_data['username']
-        if commit:
-            user.save()
-        return user
-'''
 class RegistrationForm(UserCreationForm):
     full_name = forms.CharField(label='Full Name', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
@@ -62,21 +41,6 @@ class LoginForm(AuthenticationForm):
         self.cleaned_data['username'] = username
         return super().clean()
 
-
-class PasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(label=_("Old Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'auto-focus':True, 'class':'form-control', 'placeholder':'Current Password'}))
-    new_password1 = forms.CharField(label=_("New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control', 'placeholder':'New Password'}), help_text=password_validation.password_validators_help_text_html())
-   
-class PasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=_("Email"), max_length=254, widget=forms.EmailInput(attrs={'autocomplete':'email', 'class':'form-control'}))
-
-
-class SetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=_("New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control'}), help_text=password_validation.password_validators_help_text_html())
-
-
-from django import forms
-from .models import Product
 
 class ProductForm(forms.ModelForm):
     class Meta:
