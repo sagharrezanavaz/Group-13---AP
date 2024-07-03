@@ -118,12 +118,12 @@
                     <form action="{% url 'store:checkout' %}" id="paymentForm">
                       <label for="cashPayment">
                           <input type="radio" id="cashPayment" name="payment_method" value="Cash" onchange="enableSubmitButton()">
-                          Cash on Delivery
+                          In-person delivery
                       </label><br>
 
                       <label for="creditPayment">
                           <input type="radio" id="creditPayment" name="payment_method" value="Credit" onchange="enableSubmitButton()">
-                          Credit
+                          Home Delivery
                       </label><br>
 
                       <button type="submit" class="btn btn-dark btn-lg btn-outline-dark" id="submitButton" disabled>Submit</button>
