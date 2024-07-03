@@ -11,13 +11,13 @@
               <div class="row m-sm-0">
                 
                 <div class="col-sm-12 order-1 order-sm-2">
-                  <div class="owl-carousel product-slider" data-slider-id="1">
+
                     {% if product.product_image %}
                       <a class="d-block" href="{{product.product_image.url}}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{{product.product_image.url}}" alt="{{product.title}}"></a>
                       {% else %}
                       <a class="d-block" href="{% static 'img/product-detail-1.jpg' %}" data-lightbox="product" title="{{product.title}}"><img class="img-fluid" src="{% static 'img/product-detail-1.jpg' %}" alt="{{product.title}}"></a>
                     {% endif %}
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -56,18 +56,16 @@
 
                 </div>
 
-              </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
+              </div>
               <ul class="list-unstyled small d-inline-block">
-                <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ml-2 text-muted">{{product.sku}}</span></li>
                 <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ml-2" href="{% url 'store:category-products' product.category.slug %}">{{product.category}}</a></li>
-                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Tags:</strong><a class="reset-anchor ml-2" href="#">Innovation</a></li>
+
               </ul>
             </div>
           </div>
           <!-- DETAILS TABS-->
           <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
-            <li class="nav-item"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
           </ul>
           <div class="tab-content mb-5" id="myTabContent">
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
@@ -76,53 +74,17 @@
                 <p class="text-muted text-small mb-0">{{product.detail_description}}</p>
               </div>
             </div>
-            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-              <div class="p-4 p-lg-5 bg-white">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <div class="media mb-3"><img class="rounded-circle" src="{% static 'img/customer-1.png' %}" alt="" width="50">
-                      <div class="media-body ml-3">
-                        <h6 class="mb-0 text-uppercase">Jason Doe</h6>
-                        <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
-                        <ul class="list-inline mb-1 text-xs">
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                        </ul>
-                        <p class="text-small mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      </div>
-                    </div>
-                    <div class="media"><img class="rounded-circle" src="{% static 'img/customer-2.png' %}" alt="" width="50">
-                      <div class="media-body ml-3">
-                        <h6 class="mb-0 text-uppercase">Jason Doe</h6>
-                        <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
-                        <ul class="list-inline mb-1 text-xs">
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                          <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                        </ul>
-                        <p class="text-small mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
 
-          <!-- RELATED PRODUCTS
+
+
           <h2 class="h5 text-uppercase mb-4">Related products</h2>
           <div class="row">
 
             {% if related_products %}
               {% for rp in related_products %}
-              -->
-                <!-- PRODUCT
+
+
                 <div class="col-lg-3 col-sm-6">
                   <div class="product text-center skel-loader">
                     <div class="d-block mb-3 position-relative">
@@ -147,11 +109,18 @@
                 </div>
 
               {% endfor %}
-            {% endif %} -->
+            {% endif %}
 
            
 
           </div>
         </div>
       </section>
+        <style>
+
+    .product img {
+      height: 300px; /* Adjust the height as needed for alignment */
+      object-fit: cover;
+  }
+</style>
       {% endblock content %}
