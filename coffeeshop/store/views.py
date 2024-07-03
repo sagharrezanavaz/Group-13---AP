@@ -227,18 +227,6 @@ def orders(request):
 
 
 
-def shop(request):
-    categories_menu = Category.objects.all()
-    return render(request, 'store/shop.html', {'categories_menu':categories_menu})
-
-
-
-
-
-def test(request):
-    categories_menu = Category.objects.all()
-    return render(request, 'store/test.html',{'categories_menu':categories_menu})
-
 
 @user_passes_test(lambda u: u.is_staff)
 def storage(request):
