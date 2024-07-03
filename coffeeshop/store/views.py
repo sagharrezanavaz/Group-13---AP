@@ -10,7 +10,6 @@ import decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for Class Based Views
 from .models import  Cart, Category, Order, Product
-from django.shortcuts import render, redirect
 from .forms import ProductForm
 from django.db.models import Sum
 from django.contrib.auth import authenticate, login, logout
@@ -226,18 +225,6 @@ def orders(request):
     return render(request, 'cart.html', {'orders': all_orders,'categories_menu':categories_menu})
 
 
-
-def shop(request):
-    categories_menu = Category.objects.all()
-    return render(request, 'store/shop.html', {'categories_menu':categories_menu})
-
-
-
-
-
-def test(request):
-    categories_menu = Category.objects.all()
-    return render(request, 'store/test.html',{'categories_menu':categories_menu})
 
 
 @user_passes_test(lambda u: u.is_staff)
