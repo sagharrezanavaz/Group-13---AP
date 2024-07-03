@@ -4,30 +4,34 @@
 {% block content %}
 
 <div class="container py-5">
-    <div class="col-md-8 offset-2">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-        <h1 class="mb-5">Add Product</h1>
+            <h1 class="mb-5 text-center">Add Product</h1>
 
-        <div class="card mb-4" id="forms">
-            <div class="card-body">
+            <div class="card shadow mb-4">
+                <div class="card-body">
 
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                                <div class="col-sm-8">
+                                    {{ field }}
+                                    <small class="text-danger">{{ field.errors|striptags }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                        <button class="btn btn-primary btn-block mt-4" type="submit">Submit</button>
+                    </form>
 
-                    {% for field in form %}
-                        <div class="form-group" style="margin-bottom: 15px;">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            <small class="text-danger">{{ field.errors|striptags }}</small>
-                        </div>
-                    {% endfor %}
-
-                    <button class="btn btn-primary" type="submit" style="width: 100%;">Submit</button>
-                </form>
-
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 
